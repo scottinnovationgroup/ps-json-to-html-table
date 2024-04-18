@@ -110,7 +110,7 @@ foreach(create_merge_array($_POST['data']) as $row=>$col) {
 				print '<th>'.ucwords($cell).'</th>';
 			} else {
 				if(in_array($key, array(7,8))) {
-					print '<td>$'.number_format($cell).'</td>';	
+					print '<td>$'.number_format(preg_replace('/[$,]/', '', $cell)).'</td>';	
 				} else {
 					print '<td>'.$cell.'</td>';
 				}
