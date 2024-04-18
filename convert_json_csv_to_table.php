@@ -94,16 +94,16 @@ foreach(create_merge_array($_POST['data']) as $row=>$col) {
 						$cell = 'Activity';
 						break;
 					case 'start date':
-						$cell = 'Start Data';
+						$cell = 'Start Date';
 						break;
 					case 'target completion date':
 						$cell = 'Complete Date';
 						break;
 					case 'estimated cost minimum':
-						$cell = 'Minimum Cost';
+						$cell = 'Min. Cost';
 						break;
 					case 'estimated cost maximum':
-						$cell = 'Maximum Cost';
+						$cell = 'Max. Cost';
 						break;
 				}
 
