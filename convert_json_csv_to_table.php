@@ -9,6 +9,7 @@ function date_compare($element1, $element2) {
 function sort_by_start_date($arr,$sort=SORT_ASC) {
 	$dates = array_column($arr, 4);
 	$rank = array_column($arr, 'rank');
+
 	array_multisort($dates, $sort, $arr);
 
 	return $arr;
@@ -54,6 +55,27 @@ function create_level_array($data, $level = '') {
 	}
 
 	return $arr;
+}
+
+function get_array_max_depth($array) {
+    $maxDepth = 1;
+
+    foreach ($array as $key => $value) {
+        $elementDepth = 2;
+        while (is_array($value) === true) {
+            foreach ($value as $subValue) {
+                if (is_array($subValue) === true) {
+                    $elementDepth++;
+                    if ($elementDepth > $maxDepth) {
+                        $maxDepth = $elementDepth;
+                    }
+                }
+                $value = $subValue;
+            }
+        }
+    }
+
+    return $maxDepth;
 }
 
 
@@ -105,8 +127,27 @@ function create_merge_array($post){
 	return array_merge($header,$merge_port);
 }
 
-print_r(create_merge_array($_POST['data']));
-exit();
+function fix_array_level($arr) {
+
+	$result = [];
+
+	foreach($arr as $key=>$value) {
+		
+		if(count($value) != 17) {
+
+			if(is_array($value)) {
+				$result =  array_merge($result, fix_array_level($value));
+			}
+		} else {
+			$result[] = $value;
+			
+		}
+	}
+
+	return $result;
+
+}
+
 
 // Begin HTML Table Rendering
 
@@ -114,7 +155,7 @@ $i = 0;
 
 print '<table class="pure-table pure-table-bordered">';
 
-foreach(create_merge_array($_POST['data']) as $row=>$col) {
+foreach(fix_array_level(create_merge_array($_POST['data'])) as $row=>$col) {
 
 	$type = $col[14];
 	
@@ -129,32 +170,34 @@ foreach(create_merge_array($_POST['data']) as $row=>$col) {
 
 	foreach($col as $key=>$cell) {
 
-		if(in_array($key, array(0,1,2,4,5,7,8))) {
-			if($i == 0){
-				switch ($cell) {
-					case 'program/project/milestone':
-						$cell = 'Activity';
-						break;
-					case 'start date':
-						$cell = 'Start Date';
-						break;
-					case 'target completion date':
-						$cell = 'Complete Date';
-						break;
-					case 'estimated cost minimum':
-						$cell = 'Min. Cost';
-						break;
-					case 'estimated cost maximum':
-						$cell = 'Max. Cost';
-						break;
-				}
+		if($key != 'rank') {
+			if(in_array($key, array(0,1,2,4,5,7,8))) {
+				if($i == 0){
+					switch ($cell) {
+						case 'program/project/milestone':
+							$cell = 'Activity';
+							break;
+						case 'start date':
+							$cell = 'Start Date';
+							break;
+						case 'target completion date':
+							$cell = 'Complete Date';
+							break;
+						case 'estimated cost minimum':
+							$cell = 'Min. Cost';
+							break;
+						case 'estimated cost maximum':
+							$cell = 'Max. Cost';
+							break;
+					}
 
-				print '<th>'.ucwords($cell).'</th>';
-			} else {
-				if(in_array($key, array(7,8))) {
-					print '<td>$'.number_format(preg_replace('/[$,]/', '', $cell)).'</td>';	
+					print '<th>'.ucwords($cell).'</th>';
 				} else {
-					print '<td>'.$cell.'</td>';
+					if(in_array($key, array(7,8))) {
+						print '<td>$'.number_format(preg_replace('/[$,]/', '', $cell)).'</td>';	
+					} else {
+						print '<td>'.$cell.'</td>';
+					}
 				}
 			}
 		}
