@@ -1,11 +1,5 @@
 <?php
 
-function date_compare($element1, $element2) { 
-    $datetime1 = strtotime($element1[4]); 
-    $datetime2 = strtotime($element2[4]); 
-    return $datetime1 - $datetime2; 
-}
-
 function sort_by_start_date($arr,$sort=SORT_ASC) {
 	$dates = array_column($arr, 4);
 	$rank = array_column($arr, 'rank');
@@ -56,28 +50,6 @@ function create_level_array($data, $level = '') {
 
 	return $arr;
 }
-
-function get_array_max_depth($array) {
-    $maxDepth = 1;
-
-    foreach ($array as $key => $value) {
-        $elementDepth = 2;
-        while (is_array($value) === true) {
-            foreach ($value as $subValue) {
-                if (is_array($subValue) === true) {
-                    $elementDepth++;
-                    if ($elementDepth > $maxDepth) {
-                        $maxDepth = $elementDepth;
-                    }
-                }
-                $value = $subValue;
-            }
-        }
-    }
-
-    return $maxDepth;
-}
-
 
 function create_merge_array($post){
 	$header = create_level_array($post,'_type');
