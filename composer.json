@@ -15,10 +15,8 @@
 		"bin/heroku-php-apache2",
 		"bin/heroku-php-nginx"
 	],
-	"require": [
-		{
+	"require": {
 	   		"php": ">=7.4.33"
 	   	}
-   	]
 
 }
