@@ -1,21 +1,22 @@
 {
-    "require": {
-        "php": "8.1.6"
-    },
-    "extra": {
-        "heroku": {
-            "document-root": "web",
-            "index-document": "index.php",
-            "php-config": [
-                "short_open_tag=on"
-            ],
-            "engines": {
-                "php": "8.1.*",
-                "nginx": "1.4.*"
-            },
-            "compile": [
-                "echo $FOO"
-            ]
-        }
-    }
+	"name": "heroku/heroku-buildpack-php",
+	"description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP and Apache2/Nginx as on Heroku",
+	"keywords": ["heroku", "foreman", "php", "apache", "apache2", "nginx"],
+	"homepage": "https://github.com/heroku/heroku-buildpack-php",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "David Zuelke",
+			"email": "dz@heroku.com"
+		}
+	],
+	"bin": [
+		"bin/heroku-php-apache2",
+		"bin/heroku-php-nginx"
+	],
+	"require": {
+	   		"php": ">=7.4.33"
+	   	}
+
 }
