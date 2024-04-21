@@ -6,14 +6,40 @@ function date_compare($element1, $element2) {
     return $datetime1 - $datetime2; 
 }
 
+function sort_by_start_date($arr,$sort=SORT_ASC) {
+	$dates = array_column($arr, 4);
+	$rank = array_column($arr, 'rank');
+	array_multisort($dates, $sort, $arr);
+
+	return $arr;
+}
+
 function create_level_array($data, $level = '') {
 	$data = json_decode($data);
 	$arr = [];
 	$arr_mod = [];
 	$i = 0;
+
+	switch ($level) {
+		case 'portfolio':
+			$rank = 1;
+			break;
+		case 'program':
+			$rank = 2;
+			break;
+		case 'project':
+			$rank = 3;
+			break;
+		case 'milestone':
+			$rank = 4;
+			break;
+		default:
+			$rank = '';
+	}
 	
 	foreach($data as $key=>$value) {
 		if($value[14] == $level) {
+			$value['rank'] = $rank;
 			array_push($arr, $value);
 		}
 	}
@@ -30,6 +56,7 @@ function create_level_array($data, $level = '') {
 	return $arr;
 }
 
+
 function create_merge_array($post){
 	$header = create_level_array($post,'_type');
 	$portfolio = create_level_array($post,'portfolio');
@@ -37,34 +64,49 @@ function create_merge_array($post){
 	$project = create_level_array($post,'project');
 	$milestone = create_level_array($post,'milestone');
 	$merge = [];
+
+	$merge_ms = [];
+	$merge_prj = [];
+	$merge_prgm = [];
+	$merge_port = [];
 	
 	foreach($portfolio as $port) {
-		array_push($merge, $port);
+		array_push($merge_port, $port);
 
 		foreach($program as $prgm) {
 			if($prgm[13] == $port[0]) {
-				array_push($merge, $prgm);
+				array_push($merge_prgm, $prgm);
 
 				foreach($project as $prj) {
 					if($prj[13] == $prgm[0]) {
-						array_push($merge, $prj);
+						array_push($merge_prj, $prj);
 
 						foreach($milestone as $ms) {
 							if($ms[13] == $prj[0]) {
-								array_push($merge,$ms);
+								array_push($merge_ms, $ms);
+								$merge_ms = sort_by_start_date($merge_ms);
 							}
 						}
-						usort($merge,'date_compare');
+					$merge_prj = sort_by_start_date($merge_prj);
+					array_push($merge_prj, $merge_ms);
+					$merge_ms = [];
 					}
 				}
-				usort($merge,'date_compare');
+			$merge_prgm = sort_by_start_date($merge_prgm);
+			array_push($merge_prgm, $merge_prj);
+			$merge_prj = [];
 			}
 		}
-		usort($merge,'date_compare');
+		$merge_port = sort_by_start_date($merge_port);
+		array_push($merge_port, $merge_prgm);
+		$merge_prgm = [];
 	}
 
-	return array_merge($header,$merge);
+	return array_merge($header,$merge_port);
 }
+
+print_r(create_merge_array($_POST['data']));
+exit();
 
 // Begin HTML Table Rendering
 
