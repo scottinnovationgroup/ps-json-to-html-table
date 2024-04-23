@@ -3,13 +3,31 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function sort_by_start_date($arr,$sort=SORT_ASC) {
+function iterate_array($arr) {
+    $result = [];
+    $i = 0;
 
     foreach($arr as $item) {
-        $count = count((array)$item);
-        if($count != 17) {
+        if(count($item) != 17) {
+            $result[] = $item[$i];
+        }
+        $i++;
+    }
+
+    return $result;
+}
+function sort_by_start_date($arr,$sort=SORT_ASC) {
+
+    $iterate = iterate_array($arr);
+
+    foreach($arr as $key=>$value) {
+
+        $count = count((array)$value);
+        if($count !== 17) {
             $dates = array_column($arr, 4);
-            $dates[] = array_column($item, 4);
+            foreach($iterate as $itr_key=>$itr_value) {
+                $dates[] = array_column($iterate, 4);
+            }
             break;
         } else {
             $dates = array_column($arr, 4);
