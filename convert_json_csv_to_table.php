@@ -1,13 +1,28 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 function sort_by_start_date($arr,$sort=SORT_ASC) {
-	$dates = array_column($arr, 4);
-	$rank = array_column($arr, 'rank');
 
-	array_multisort($dates, $sort, $arr);
+    foreach($arr as $item) {
+        $count = count((array)$item);
+        if($count != 17) {
+            $dates = array_column($arr, 4);
+            $dates[] = array_column($item, 4);
+            break;
+        } else {
+            $dates = array_column($arr, 4);
+        }
+    }
 
-	return $arr;
+    array_multisort($dates, $sort, $arr);
+
+    return $arr;
 }
+
+print_r(create_merge_array($_POST['data']));
+exit();
 
 function create_level_array($data, $level = '') {
 	$data = json_decode($data);
@@ -35,7 +50,7 @@ function create_level_array($data, $level = '') {
 	foreach($data as $key=>$value) {
 		if($value[14] == $level) {
 			$value['rank'] = $rank;
-			array_push($arr, $value);
+			$arr[] = $value;
 		}
 	}
 
@@ -43,7 +58,7 @@ function create_level_array($data, $level = '') {
 
 	foreach($arr[0] as $key=>$value) {
 		if(in_array($key, array(0,1,2,4,5,7,8))) {
-			array_push($arr_mod, $value);
+			$arr_mod[] = $value;
 		}
 		$i++;
 	}
@@ -65,34 +80,34 @@ function create_merge_array($post){
 	$merge_port = [];
 	
 	foreach($portfolio as $port) {
-		array_push($merge_port, $port);
+		$merge_port[] = $port;
 
 		foreach($program as $prgm) {
 			if($prgm[13] == $port[0]) {
-				array_push($merge_prgm, $prgm);
+				$merge_prgm[] = $prgm;
 
 				foreach($project as $prj) {
 					if($prj[13] == $prgm[0]) {
-						array_push($merge_prj, $prj);
+						$merge_prj[] = $prj;
 
 						foreach($milestone as $ms) {
 							if($ms[13] == $prj[0]) {
-								array_push($merge_ms, $ms);
+								$merge_ms[] = $ms;
 								$merge_ms = sort_by_start_date($merge_ms);
 							}
 						}
 					$merge_prj = sort_by_start_date($merge_prj);
-					array_push($merge_prj, $merge_ms);
+					$merge_prj[] = $merge_ms;
 					$merge_ms = [];
 					}
 				}
 			$merge_prgm = sort_by_start_date($merge_prgm);
-			array_push($merge_prgm, $merge_prj);
+			$merge_prgm[] = $merge_prj;
 			$merge_prj = [];
 			}
 		}
 		$merge_port = sort_by_start_date($merge_port);
-		array_push($merge_port, $merge_prgm);
+		$merge_port[] = $merge_prgm;
 		$merge_prgm = [];
 	}
 
