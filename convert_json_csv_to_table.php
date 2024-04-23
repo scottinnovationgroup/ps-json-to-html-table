@@ -21,9 +21,6 @@ function sort_by_start_date($arr,$sort=SORT_ASC) {
     return $arr;
 }
 
-print_r(create_merge_array($_POST['data']));
-exit();
-
 function create_level_array($data, $level = '') {
 	$data = json_decode($data);
 	$arr = [];
