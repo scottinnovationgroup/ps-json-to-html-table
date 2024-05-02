@@ -9,12 +9,33 @@ function iterate_array($arr) {
 
     foreach($arr as $item) {
         if(count($item) != 17) {
-            $result[] = $item[$i];
+            foreach($item as $key => $value) {
+                $result[$i][] = $value;
+            }
+            $i++;
         }
-        $i++;
     }
 
     return $result;
+}
+
+function iterate_array_convert_to_unix($date) {
+    $result_arr = [];
+    $result_str = '';
+
+    if(is_array($date)) {
+        foreach($date as $key=>$value) {
+            $result_arr[] = strtotime($value);
+        }
+    } else {
+        $result_str = strtotime($date);
+    }
+
+    if($result_arr) {
+        return $result_arr;
+    } else {
+        return $result_str;
+    }
 }
 function sort_by_start_date($arr,$sort=SORT_ASC) {
 
@@ -23,10 +44,10 @@ function sort_by_start_date($arr,$sort=SORT_ASC) {
     foreach($arr as $key=>$value) {
 
         $count = count((array)$value);
-        if($count !== 17) {
+        if($count != 17) {
             $dates = array_column($arr, 4);
             foreach($iterate as $itr_key=>$itr_value) {
-                $dates[] = array_column($iterate, 4);
+                $dates[] = array_column($itr_value, 4);
             }
             break;
         } else {
@@ -34,7 +55,12 @@ function sort_by_start_date($arr,$sort=SORT_ASC) {
         }
     }
 
-    array_multisort($dates, $sort, $arr);
+    $dates_unix = [];
+    foreach($dates as $date) {
+        $dates_unix[] = iterate_array_convert_to_unix($date);
+    }
+
+    array_multisort($dates_unix, $sort, $arr);
 
     return $arr;
 }
@@ -149,7 +175,6 @@ function fix_array_level($arr) {
 	return $result;
 
 }
-
 
 // Begin HTML Table Rendering
 
