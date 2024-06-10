@@ -204,6 +204,9 @@ foreach(fix_array_level(create_merge_array($_POST['data'])) as $row=>$col) {
 						case 'program/project/milestone':
 							$cell = 'Activity';
 							break;
+						case 'Portfolio/program/project/milestone':
+							$cell = 'Activity';
+							break;
 						case 'start date':
 							$cell = 'Start Date';
 							break;
