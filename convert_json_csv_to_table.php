@@ -89,10 +89,14 @@ function create_level_array($data, $level = '') {
 	}
 	
 	foreach($data as $key=>$value) {
-		if($value[14] == $level) {
-			$value['rank'] = $rank;
-			$arr[] = $value;
-		}
+		if($key == 0) {
+            $value[14] = '_type';
+        }
+
+        if($value[14] == $level) {
+            $value['rank'] = $rank;
+            $arr[] = $value;
+        }
 	}
 
 	unset($key,$value);
@@ -174,6 +178,16 @@ function fix_array_level($arr) {
 
 	return $result;
 
+}
+
+function check_similar_text($post_value,$exp_value,$exp_perc=75) {
+    $sim = similar_text(strtolower($post_value), $exp_value, $perc);
+
+    if($perc >= $exp_perc) {
+        return $exp_value;
+    } else {
+        return null;
+    }
 }
 
 // Begin HTML Table Rendering
