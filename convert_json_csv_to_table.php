@@ -214,11 +214,11 @@ foreach(fix_array_level(create_merge_array($_POST['data'])) as $row=>$col) {
 		if($key != 'rank') {
 			if(in_array($key, array(0,1,2,4,5,7,8))) {
 				if($i == 0){
-					switch ($cell) {
+					switch (strtolower($cell)) {
 						case 'program/project/milestone':
 							$cell = 'Activity';
 							break;
-						case 'Portfolio/program/project/milestone':
+						case 'portfolio/program/project/milestone':
 							$cell = 'Activity';
 							break;
 						case 'start date':
