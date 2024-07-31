@@ -90,7 +90,7 @@ function create_level_array($data, $level = '') {
 	
 	foreach($data as $key=>$value) {
 		if($key == 0) {
-            $value[14] = '_type';
+            $value[14] = '_Type';
         }
 
         if($value[14] == $level) {
@@ -112,7 +112,7 @@ function create_level_array($data, $level = '') {
 }
 
 function create_merge_array($post){
-	$header = create_level_array($post,'_type');
+	$header = create_level_array($post,'_Type');
 	$portfolio = create_level_array($post,'portfolio');
 	$program = create_level_array($post,'program');
 	$project = create_level_array($post,'project');
