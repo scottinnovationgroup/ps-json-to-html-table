@@ -93,20 +93,32 @@ function create_level_array($data, $level = '') {
             $value[14] = '_Type';
         }
 
-        if($value[14] == $level) {
+        if(strtolower($value[14]) == $level) {
             $value['rank'] = $rank;
             $arr[] = $value;
         }
-	}
+
+        if($key == 1 && strtolower($value[13]) == 'portfolio') {
+            $position = array_search($value[12], $value);
+            if($position !== false) {
+                $position++;
+                array_splice($value, $position,0, " ");
+                $value['rank'] = $rank;
+                $arr[] = $value;
+            }
+        }
+    }
 
 	unset($key,$value);
 
-	foreach($arr[0] as $key=>$value) {
-		if(in_array($key, array(0,1,2,4,5,7,8))) {
-			$arr_mod[] = $value;
-		}
-		$i++;
-	}
+	if(array_key_exists(0,$arr)){
+        foreach($arr[0] as $key=>$value) {
+            if(in_array($key, array(0,1,2,4,5,7,8))) {
+                $arr_mod[] = $value;
+            }
+            $i++;
+        }
+    }
 
 	return $arr;
 }
