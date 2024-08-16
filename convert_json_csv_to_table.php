@@ -93,7 +93,7 @@ function create_level_array($data, $level = '') {
             $value[14] = '_Type';
         }
 
-        if(strtolower($value[14]) == $level) {
+        if(strtolower($value[14]) == strtolower($level)) {
             $value['rank'] = $rank;
             $arr[] = $value;
         }
@@ -210,7 +210,7 @@ print '<table class="pure-table pure-table-bordered">';
 
 foreach(fix_array_level(create_merge_array($_POST['data'])) as $row=>$col) {
 
-	$type = $col[14];
+	$type = strtolower($col[14]);
 	
 
 	if($i == 0){
