@@ -42,8 +42,8 @@ function sort_by_start_date($arr,$sort=SORT_ASC) {
     $iterate = iterate_array($arr);
 
     foreach($arr as $key=>$value) {
-
         $count = count((array)$value);
+
         if($count != 17) {
             $dates = array_column($arr, 4);
             foreach($iterate as $itr_key=>$itr_value) {
@@ -60,7 +60,8 @@ function sort_by_start_date($arr,$sort=SORT_ASC) {
         $dates_unix[] = iterate_array_convert_to_unix($date);
     }
 
-    array_multisort($dates_unix, $sort, $arr);
+//    NOTE 8/20/24 - Turning off array_multisort until issue resolved where arrays of different sizes causing incorrect grouping and order of levels
+//    array_multisort($dates_unix, $sort, $arr);
 
     return $arr;
 }
