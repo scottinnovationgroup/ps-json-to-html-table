@@ -203,13 +203,29 @@ function check_similar_text($post_value,$exp_value,$exp_perc=75) {
     }
 }
 
+function is_json($string) {
+    json_decode($string);
+
+    return (json_last_error() == JSON_ERROR_NONE);
+}
+function convert_csv_to_json($post_value) {
+    if(!is_json($post_value)) {
+        $lines = explode(PHP_EOL, $post_value);
+        $result = array_map("str_getcsv", $lines);
+        return json_encode($result);
+    } else {
+        return $post_value;
+    }
+
+}
+
 // Begin HTML Table Rendering
 
 $i = 0;
 
 print '<table class="pure-table pure-table-bordered">';
 
-foreach(fix_array_level(create_merge_array($_POST['data'])) as $row=>$col) {
+foreach(fix_array_level(create_merge_array(convert_csv_to_json($_POST['data']))) as $row=>$col) {
 
 	$type = strtolower($col[14]);
 	
