@@ -8,7 +8,7 @@ function iterate_array($arr) {
     $i = 0;
 
     foreach($arr as $item) {
-        if(count($item) != 17) {
+        if(count($item) != 18) {
             foreach($item as $key => $value) {
                 $result[$i][] = $value;
             }
@@ -44,7 +44,7 @@ function sort_by_start_date($arr,$sort=SORT_ASC) {
     foreach($arr as $key=>$value) {
         $count = count((array)$value);
 
-        if($count != 17) {
+        if($count != 18) {
             $dates = array_column($arr, 4);
             foreach($iterate as $itr_key=>$itr_value) {
                 $dates[] = array_column($itr_value, 4);
@@ -178,7 +178,7 @@ function fix_array_level($arr) {
 
 	foreach($arr as $key=>$value) {
 		
-		if(count($value) != 17) {
+		if(count($value) != 18) {
 
 			if(is_array($value)) {
 				$result =  array_merge($result, fix_array_level($value));
