@@ -40,6 +40,88 @@ $flattened = array_merge($flattened, $nestedFlattened);
 return $flattened;
 }
 
+function updateCostCalculations($items) {
+    $milestoneArr = [];
+    $projectArr = [];
+    $programArr = [];
+    $portfolioArr = [];
+
+    foreach($items as $item) {
+        if($item['metadata.type'] == 'milestone') {
+            if(!isset($milestoneArr[$item['parentID']]['costMin'])) {
+                $milestoneArr[$item['parentID']]['costMin'] = [];
+            }
+            if(!isset($milestoneArr[$item['parentID']]['costMax'])) {
+                $milestoneArr[$item['parentID']]['costMax'] = [];
+            }
+            array_push($milestoneArr[$item['parentID']]['costMin'], $item['estimatedCostMinimum']);
+            array_push($milestoneArr[$item['parentID']]['costMax'], $item['estimatedCostMaximum']);
+        }
+    }
+
+    foreach($items as $item) {
+        if($item['metadata.type'] == 'project') {
+            foreach($milestoneArr as $key => $value) {
+                if($item['metadata.id'] == $key) {
+                    $projectArr[$item['metadata.parentID']]['costMin'][] = array_sum($value['costMin']);
+                    $projectArr[$item['metadata.parentID']]['costMax'][] = array_sum($value['costMax']);
+                }
+            }
+        }
+    }
+
+    foreach($items as $item) {
+        if($item['metadata.type'] == 'program') {
+            foreach($projectArr as $key => $value) {
+                if($item['metadata.id'] == $key) {
+                    $programArr[$item['metadata.parentID']]['costMin'][] = array_sum($value['costMin']);
+                    $programArr[$item['metadata.parentID']]['costMax'][] = array_sum($value['costMax']);
+                }
+            }
+        }
+    }
+
+    foreach($items as $item) {
+        if($item['metadata.type'] == 'portfolio') {
+            foreach($programArr as $key => $value) {
+                if($item['metadata.id'] == $key) {
+                    $portfolioArr['costMin'][] = array_sum($value['costMin']);
+                    $portfolioArr['costMax'][] = array_sum($value['costMax']);
+                }
+            }
+        }
+    }
+
+    foreach($items as $item) {
+        if($item['metadata.type'] == 'portfolio') {
+            foreach($programArr as $key => $value) {
+                if($item['metadata.id'] == $key) {
+                    $items[$key-1]['estimatedCostMinimum'] = array_sum($programArr[$key]['costMin']);
+                    $items[$key-1]['estimatedCostMaximum'] = array_sum($programArr[$key]['costMax']);
+                }
+            }
+        }
+        if($item['metadata.type'] == 'program') {
+            foreach($projectArr as $key => $value) {
+                if($item['metadata.id'] == $key) {
+                    $items[$key-1]['estimatedCostMinimum'] = array_sum($projectArr[$key]['costMin']);
+                    $items[$key-1]['estimatedCostMaximum'] = array_sum($projectArr[$key]['costMax']);
+                }
+            }
+        }
+        if($item['metadata.type'] == 'project') {
+            foreach($milestoneArr as $key => $value) {
+                if($item['metadata.id'] == $key) {
+                    $items[$key-1]['estimatedCostMinimum'] = array_sum($milestoneArr[$key]['costMin']);
+                    $items[$key-1]['estimatedCostMaximum'] = array_sum($milestoneArr[$key]['costMax']);
+                }
+            }
+        }
+    }
+
+    return $items;
+}
+
 // Get the JSON data from the POST request body
 //$jsonData = file_get_contents($_POST['json']);
 $data = json_decode($_POST['json'], true);
@@ -52,6 +134,9 @@ exit;
 
 // Flatten the JSON data
 $flattenedData = flatten([$data]);
+
+// Update value calculations
+$flattenedData = updateCostCalculations($flattenedData);
 
 // Create a CSV string
 $output = fopen('php://output', 'w');
