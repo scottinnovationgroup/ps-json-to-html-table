@@ -15,7 +15,7 @@ function csvToHtmlTable($csvString, $selectedColumns) {
         $cells = str_getcsv($line);
 
         // If it's the first line, set headers
-        if ($index === 0) {
+        if ($index == 0) {
             $headers = $cells;
             // Create header row
             $html .= '<thead><tr>';
@@ -28,7 +28,7 @@ function csvToHtmlTable($csvString, $selectedColumns) {
                 }
             }
             $html .= '</tr></thead><tbody>';
-            continue 1; // Skip processing for header row
+            continue; // Skip processing for header row
         }
 
         // Begin a new row
