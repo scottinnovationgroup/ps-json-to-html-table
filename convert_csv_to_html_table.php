@@ -28,9 +28,10 @@ function csvToHtmlTable($csvString, $selectedColumns) {
                 }
             }
             $html .= '</tr></thead><tbody>';
+            $html .= 'test';
             continue; // Skip processing for header row
         }
-        $html .= 'test';
+
         // Begin a new row
         $html .= '<tr class="'.$cells[17].'">';
 
