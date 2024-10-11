@@ -35,11 +35,11 @@ function csvToHtmlTable($csvString, $selectedColumns) {
 
         foreach ($cells as $key => $cell) {
             if($headers[$key] == 'Estimated Cost Minimum' || $headers[$key] == 'Estimated Cost Maximum') {
-                //$cell = '$'.number_format($cell, 0, '.', ',');
+                $cell = '$'.number_format($cell, 0, '.', ',');
             }
             if($headers[$key] == 'Start Date' || $headers[$key] == 'Target Complete Date') {
-                //$cell = strtotime($cell);
-                //$cell = date('m/d/Y', $cell);
+                $cell = strtotime($cell);
+                $cell = date('m/d/Y', $cell);
             }
 
             // Check if the header corresponds to the selected columns (case-insensitive)
