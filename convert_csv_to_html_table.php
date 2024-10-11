@@ -28,8 +28,7 @@ function csvToHtmlTable($csvString, $selectedColumns) {
                 }
             }
             $html .= '</tr></thead><tbody>';
-            $html .= 'test';
-            continue; // Skip processing for header row
+            continue 1; // Skip processing for header row
         }
 
         // Begin a new row
