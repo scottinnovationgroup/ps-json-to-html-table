@@ -122,6 +122,29 @@ function updateCostCalculations($items) {
     return $items;
 }
 
+function addParentName($items){
+    foreach($items as $item) {
+        $row = [
+            'id' => $item['metadata.id'],
+            'name' => $item['activity']
+        ];
+        $flattened[] = $row;
+    }
+
+    foreach ($items as $itemKey=>$itemValue) {
+        foreach($flattened as $key=>$value) {
+            if($itemValue['parentID'] == null) {
+                $items[$itemKey]['parentName'] = null;
+            }
+            if($itemValue['parentID'] == $value['id']) {
+                $items[$itemKey]['parentName'] = $value['name'];
+            }
+        }
+    }
+
+    return $items;
+}
+
 // Get the JSON data from the POST request body
 //$jsonData = file_get_contents($_POST['json']);
 $data = json_decode($_POST['json'], true);
@@ -137,6 +160,9 @@ $flattenedData = flatten([$data]);
 
 // Update value calculations
 $flattenedData = updateCostCalculations($flattenedData);
+
+// add parent name
+$flattenedData = addParentName($flattenedData);
 
 // Create a CSV string
 $output = fopen('php://output', 'w');
@@ -166,7 +192,8 @@ $headers = [
 'Metadata Type',
 'Metadata Level',
 'Parent ID',
-'Level'
+'Level',
+'Parent Name'
 ];
 
 // Add headers to the CSV
