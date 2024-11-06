@@ -361,36 +361,42 @@ $('select#Solution-Area').on('change',function(){
     $('.other-option-input-section').remove();
     
     if($(this).val() == 'Brand and Marketing Strategy') {
+        $('.form-label-focus-area-span').text('Brand and Marketing Strategy').toLowerCase();
         updateSelectField(brandAndMarketing, 'Primary-Objective');
         updateSelectField(brandAndMarketing, 'Current-Measures');
         updateSelectField(brandAndMarketing, 'Challenges');
         updateSelectField(brandAndMarketing, 'Areas-for-Improvement');
     }
     if($(this).val() == 'Business Transformation') {
+        $('.form-label-focus-area-span').text('Business Transformation').toLowerCase();
         updateSelectField(businessTransformation, 'Primary-Objective');
         updateSelectField(businessTransformation, 'Current-Measures');
         updateSelectField(businessTransformation, 'Challenges');
         updateSelectField(businessTransformation, 'Areas-for-Improvement');
     }
     if($(this).val() == 'Organization Change Management') {
+        $('.form-label-focus-area-span').text('Organization Change Management').toLowerCase();
         updateSelectField(organizationChangeManagement, 'Primary-Objective');
         updateSelectField(organizationChangeManagement, 'Current-Measures');
         updateSelectField(organizationChangeManagement, 'Challenges');
         updateSelectField(organizationChangeManagement, 'Areas-for-Improvement');
     }
     if($(this).val() == 'IT Service Delivery') {
+        $('.form-label-focus-area-span').text('IT Service Delivery').toLowerCase();
         updateSelectField(itServiceDelivery, 'Primary-Objective');
         updateSelectField(itServiceDelivery, 'Current-Measures');
         updateSelectField(itServiceDelivery, 'Challenges');
         updateSelectField(itServiceDelivery, 'Areas-for-Improvement');
     }
     if($(this).val() == 'Product Innovation and Development') {
+        $('.form-label-focus-area-span').text('Product Innovation and Development').toLowerCase();
         updateSelectField(productInnovationAndDevelopment, 'Primary-Objective');
         updateSelectField(productInnovationAndDevelopment, 'Current-Measures');
         updateSelectField(productInnovationAndDevelopment, 'Challenges');
         updateSelectField(productInnovationAndDevelopment, 'Areas-for-Improvement');
     }
     if($(this).val() == 'Startup Growth and Expansion') {
+        $('.form-label-focus-area-span').text('Startup Growth and Expansion').toLowerCase();
         updateSelectField(startupGrowthAndExpansion, 'Primary-Objective');
         updateSelectField(startupGrowthAndExpansion, 'Current-Measures');
         updateSelectField(startupGrowthAndExpansion, 'Challenges');
