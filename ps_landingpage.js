@@ -355,7 +355,7 @@ function updateSelectField(nestedObject, selectFieldId) {
 }
 
 
-// If solution area field is selected, runupdatedSelectField functions for each of the four fields
+// If solution area field is selected, run updatedSelectField functions for each of the four fields
 $('select#Solution-Area').on('change',function(){
     if($(this).val() == 'Brand and Marketing Strategy') {
         updateSelectField(brandAndMarketing, 'Primary-Objective');
