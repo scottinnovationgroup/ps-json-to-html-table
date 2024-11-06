@@ -352,11 +352,14 @@ function updateSelectField(nestedObject, selectFieldId) {
         option.textContent = value;
         selectField.appendChild(option);
     });
+
 }
 
 
 // If solution area field is selected, run updatedSelectField functions for each of the four fields
 $('select#Solution-Area').on('change',function(){
+    $('.other-option-input-section').remove();
+    
     if($(this).val() == 'Brand and Marketing Strategy') {
         updateSelectField(brandAndMarketing, 'Primary-Objective');
         updateSelectField(brandAndMarketing, 'Current-Measures');
