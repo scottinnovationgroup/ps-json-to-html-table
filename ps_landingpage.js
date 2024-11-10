@@ -357,11 +357,13 @@ function updateSelectField(nestedObject, selectFieldId) {
 
 
 // If solution area field is selected, run updatedSelectField functions for each of the four fields
+$('.solution-field-group-wrapper').css("visibility","hidden");
 $('select#Solution-Area').on('change',function(){
     $('.other-option-input-section').remove();
 
     if($(this).val() == '') {
         $('.solution-field-group-wrapper').css("visibility","hidden");
+        $('.solution-field-group-wrapper select').val("");
     }
 
     if($(this).val() == 'Brand and Marketing Strategy') {
