@@ -359,8 +359,13 @@ function updateSelectField(nestedObject, selectFieldId) {
 // If solution area field is selected, run updatedSelectField functions for each of the four fields
 $('select#Solution-Area').on('change',function(){
     $('.other-option-input-section').remove();
-    
+
+    if($(this).val() == '') {
+        $('.solution-field-group-wrapper').css("visibility","hidden");
+    }
+
     if($(this).val() == 'Brand and Marketing Strategy') {
+        $('.solution-field-group-wrapper').css("visibility","visible");
         $('.form-label-focus-area-span').text('brand and marketing strategy');
         updateSelectField(brandAndMarketing, 'Primary-Objective');
         updateSelectField(brandAndMarketing, 'Current-Measures');
@@ -368,6 +373,7 @@ $('select#Solution-Area').on('change',function(){
         updateSelectField(brandAndMarketing, 'Areas-for-Improvement');
     }
     if($(this).val() == 'Business Transformation') {
+        $('.solution-field-group-wrapper').css("visibility","visible");
         $('.form-label-focus-area-span').text('business transformation');
         updateSelectField(businessTransformation, 'Primary-Objective');
         updateSelectField(businessTransformation, 'Current-Measures');
@@ -375,6 +381,7 @@ $('select#Solution-Area').on('change',function(){
         updateSelectField(businessTransformation, 'Areas-for-Improvement');
     }
     if($(this).val() == 'Organizational Change Management') {
+        $('.solution-field-group-wrapper').css("visibility","visible");
         $('.form-label-focus-area-span').text('organizational change management');
         updateSelectField(organizationalChangeManagement, 'Primary-Objective');
         updateSelectField(organizationalChangeManagement, 'Current-Measures');
@@ -382,6 +389,7 @@ $('select#Solution-Area').on('change',function(){
         updateSelectField(organizationalChangeManagement, 'Areas-for-Improvement');
     }
     if($(this).val() == 'IT Service Delivery') {
+        $('.solution-field-group-wrapper').css("visibility","visible");
         $('.form-label-focus-area-span').text('IT service delivery');
         updateSelectField(itServiceDelivery, 'Primary-Objective');
         updateSelectField(itServiceDelivery, 'Current-Measures');
@@ -389,6 +397,7 @@ $('select#Solution-Area').on('change',function(){
         updateSelectField(itServiceDelivery, 'Areas-for-Improvement');
     }
     if($(this).val() == 'Product Innovation and Development') {
+        $('.solution-field-group-wrapper').css("visibility","visible");
         $('.form-label-focus-area-span').text('product innovation and development');
         updateSelectField(productInnovationAndDevelopment, 'Primary-Objective');
         updateSelectField(productInnovationAndDevelopment, 'Current-Measures');
@@ -396,6 +405,7 @@ $('select#Solution-Area').on('change',function(){
         updateSelectField(productInnovationAndDevelopment, 'Areas-for-Improvement');
     }
     if($(this).val() == 'Startup Growth and Expansion') {
+        $('.solution-field-group-wrapper').css("visibility","visible");
         $('.form-label-focus-area-span').text('startup growth and expansion');
         updateSelectField(startupGrowthAndExpansion, 'Primary-Objective');
         updateSelectField(startupGrowthAndExpansion, 'Current-Measures');
