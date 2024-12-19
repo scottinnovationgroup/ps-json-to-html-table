@@ -1,11 +1,11 @@
 <?php
 
-function webhook_update_industry_json_file($query) {
+function webhook_add_industry_json_file($query) {
     $url = 'https://hooks.zapier.com/hooks/catch/18108931/2svviql/';
 
     $ch = curl_init();
 
-    $query_url = $url . '?query=' . $query;
+    $query_url = $url . '?query=' . urlencode($query);
 
     curl_setopt($ch, CURLOPT_URL, $query_url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -39,7 +39,7 @@ foreach ($data as $item) {
 }
 
 if(json_decode($result, true)['result'] == 'false') {
-    webhook_update_industry_json_file($_GET['item']);
+    webhook_add_industry_json_file($_GET['item']);
     print $result;
 } else {
     print $result;
