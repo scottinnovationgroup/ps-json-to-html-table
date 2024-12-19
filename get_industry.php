@@ -1,7 +1,25 @@
 <?php
 
+// Get the origin of the request
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+
+// Define allowed origins
+$allowed_origins = [
+    'https://portfoliostack.com',
+    'http://localhost:8888'
+];
+
+// Check if the origin is in the allowed origins
+if (in_array($origin, $allowed_origins)) {
+    header("Access-Control-Allow-Origin: $origin");
+}
+
 print $_SERVER['HTTP_REFERER'];
 exit();
+
+if(!$_GET['item']) {
+    exit("Invalid item.");
+}
 
 function webhook_add_industry_json_file($query) {
     $url = 'https://hooks.zapier.com/hooks/catch/18108931/2svviql/';
