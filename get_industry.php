@@ -1,5 +1,8 @@
 <?php
 
+print $_SERVER['HTTP_REFERER'];
+exit();
+
 function webhook_add_industry_json_file($query) {
     $url = 'https://hooks.zapier.com/hooks/catch/18108931/2svviql/';
 
@@ -13,7 +16,7 @@ function webhook_add_industry_json_file($query) {
     $response = curl_exec($ch);
 
     if (curl_errno($ch)) {
-        die("cURL error: " . curl_error($ch));
+        exit("cURL error: " . curl_error($ch));
     }
 
     curl_close($ch);
