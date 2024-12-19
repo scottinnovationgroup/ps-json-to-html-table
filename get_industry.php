@@ -5,7 +5,7 @@ $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 
 // Define allowed origins
 $allowed_origins = [
-    'https://portfoliostack.com',
+    'https://www.portfoliostack.com',
     'http://localhost:8888'
 ];
 
