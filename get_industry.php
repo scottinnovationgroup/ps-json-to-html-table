@@ -1,21 +1,14 @@
 <?php
 
-// Get the origin of the request
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 
-// Define allowed origins
 $allowed_origins = [
-    'https://www.portfoliostack.com',
-    'http://localhost:8888'
+    'https://www.portfoliostack.com'
 ];
 
-// Check if the origin is in the allowed origins
 if (in_array($origin, $allowed_origins)) {
     header("Access-Control-Allow-Origin: $origin");
 }
-
-print $_SERVER['HTTP_REFERER'];
-exit();
 
 if(!$_GET['item']) {
     exit("Invalid item.");
@@ -60,7 +53,7 @@ foreach ($data as $item) {
 }
 
 if(json_decode($result, true)['result'] == 'false') {
-    webhook_add_industry_json_file($_GET['item']);
+//    webhook_add_industry_json_file($_GET['item']);
     print $result;
 } else {
     print $result;
