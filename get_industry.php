@@ -35,7 +35,7 @@ function webhook_add_industry_json_file($query) {
     return $response;
 }
 
-$json_file_path = 'all_industry.json';
+$json_file_path = 'https://portfoliostack-s3.s3.us-east-1.amazonaws.com/all_industry.json';
 
 $json_data = file_get_contents($json_file_path);
 
@@ -53,7 +53,7 @@ foreach ($data as $item) {
 }
 
 if(json_decode($result, true)['result'] == 'false') {
-//    webhook_add_industry_json_file($_GET['item']);
+    webhook_add_industry_json_file($_GET['item']);
     print $result;
 } else {
     print $result;
