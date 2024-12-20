@@ -57,7 +57,9 @@ foreach ($data as $item) {
 }
 
 if(json_decode($result, true)['result'] == 'false') {
-    webhook_add_industry_json_file($_GET['item']);
+    if($_GET['check_only'] !== 'true') {
+        webhook_add_industry_json_file($_GET['item']);
+    }
     print $result;
 } else {
     print $result;
