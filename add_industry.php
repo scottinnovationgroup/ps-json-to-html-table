@@ -1,5 +1,8 @@
 <?php
 
+/*
+ * Replaced with Zapier process on 12/20/24
+
 if($_POST['source'] !== 'Zapier') {
     exit("Invalid source.");
 }
@@ -15,3 +18,5 @@ $current_array[] = $object_to_add;
 $updated_json = json_encode($current_array, JSON_PRETTY_PRINT);
 
 print $updated_json;
+
+*/
