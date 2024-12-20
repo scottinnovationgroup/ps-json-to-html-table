@@ -15,6 +15,10 @@ if(!$_GET['item']) {
 }
 
 function webhook_add_industry_json_file($query) {
+    if(!$query) {
+        exit("No query");
+    }
+    
     $url = 'https://hooks.zapier.com/hooks/catch/18108931/2svviql/';
 
     $ch = curl_init();
