@@ -369,6 +369,9 @@ $('select#Solution-Area').on('change',function(){
             height: $('div[aria-label="4 of 5"]').height() + 30 + 'px'
         }, 500);
     } else {
+        $('.solution-field-group-wrapper').css("visibility","visible");
+        $('.solution-field-group-wrapper').css("display","flex");
+
         if($(this).val() == 'Brand and Marketing Strategy') {
             $('.solution-field-group-wrapper').css("visibility","visible");
             $('.form-label-focus-area-span').text('brand and marketing strategy');
