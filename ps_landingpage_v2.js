@@ -355,10 +355,7 @@ function updateSelectField(nestedObject, selectFieldId) {
 
 }
 
-
-// If solution area field is selected, run updatedSelectField functions for each of the four fields
-$('.solution-field-group-wrapper').css("visibility","hidden");
-$('select#Solution-Area').on('change',function(){
+function setFallbackObjectives() {
     $('.other-option-input-section').remove();
 
     if($(this).val() == '') {
@@ -425,4 +422,9 @@ $('select#Solution-Area').on('change',function(){
             height: $('div[aria-label="5 of 5"]').height() + 30 + 'px'
         }, 500);
     }
-})
+}
+
+
+// If solution area field is selected, run updatedSelectField functions for each of the four fields
+$('.solution-field-group-wrapper').css("visibility","hidden");
+$('select#Solution-Area').on('change', setFallbackObjectives);
