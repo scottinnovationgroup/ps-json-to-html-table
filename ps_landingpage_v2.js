@@ -545,6 +545,7 @@ const startupGrowthAndExpansion = {
 $(document).ready(function() {
 
     $('#Industry-2').on('change', function(){
+        console.log('test');
         $('.solution-field-group-wrapper').css("display","none");
         $('.solution-field-group-wrapper').css("visibility","hidden");
         $('#Slide-5-Wrapper select').val('');
