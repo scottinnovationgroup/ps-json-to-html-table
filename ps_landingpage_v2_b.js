@@ -60,7 +60,6 @@ function ajaxIndustryResponse(response, request) {
         createFields('Solution-Area', titles);
 
         $('select#Solution-Area').on('change',function(){
-            console.log('bp1');
             var changedElement = $(this);
             $.each(JSON.parse(industryResponse)[$('#Industry-2').val()]["initiatives"], function(index, initiative) {
 
@@ -94,7 +93,6 @@ function ajaxIndustryResponse(response, request) {
     } else {
         $('#Slide-5-Wrapper .form-about-section').html(window.fallbackObjectivesHTML);
         $('select#Solution-Area').on('change', setFallbackObjectives);
-        console.log('bp4');
         return industryResponse;
     }
 }
@@ -104,7 +102,6 @@ function nextSlideButtonAjax(event='') {
         url: event.data.endpoint,
         method: 'GET',
         success: function(response) {
-            console.log(ajaxIndustryResponse(response));
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error('Error:', textStatus, errorThrown);
@@ -133,10 +130,7 @@ $(document).ready(function() {
                 success: function(response) {
                     if(ajaxIndustryResponse(response, industryRequest) === true) {
                         $('#Next-Slide-3,#Next-Slide-4,#Next-Slide-5').off('click press', nextSlideButtonAjax);
-                        console.log('bp2');
                     } else {
-                        console.log('bp3');
-
                         var endpoint_check_only = 'https://ps-json-to-html-table-43c5e8c6dd96.herokuapp.com/get_industry.php?item='+industryRequest+'&check_only=true';
 
                         $('#Next-Slide-3,#Next-Slide-4,#Next-Slide-5').on('click press', {endpoint: endpoint_check_only}, nextSlideButtonAjax);
