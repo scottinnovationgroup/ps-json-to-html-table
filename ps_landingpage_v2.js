@@ -95,7 +95,7 @@ function ajaxIndustryResponse(response, request) {
 
         return true;
     } else {
-        $('#Slide-5-Wrapper .form-about-section').html(fallbackObjectivesHTML);
+        $('#Slide-5-Wrapper .form-about-section').html(window.fallbackObjectivesHTML);
         $('select#Solution-Area').on('change', setFallbackObjectives);
         console.log('bp4');
         return industryResponse;
