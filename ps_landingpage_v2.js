@@ -1,3 +1,9 @@
+var industryResponse;
+var fallbackObjectivesHTML = $('#Slide-5-Wrapper .form-about-section').html();
+
+$('.solution-field-group-wrapper').css("visibility","hidden");
+$('select#Solution-Area').on('change', setFallbackObjectives);
+
 function getInitiativeTitles(jsonData, industry) {
 
     var initiatives = JSON.parse(industryResponse)[industry]["initiatives"];
@@ -89,7 +95,7 @@ function ajaxIndustryResponse(response, request) {
 
         return true;
     } else {
-        $('#Slide-5-Wrapper .form-about-section').html(window.fallbackObjectivesHTML);
+        $('#Slide-5-Wrapper .form-about-section').html(fallbackObjectivesHTML);
         $('select#Solution-Area').on('change', setFallbackObjectives);
         console.log('bp4');
         return industryResponse;
@@ -537,12 +543,6 @@ const startupGrowthAndExpansion = {
 };
 
 $(document).ready(function() {
-
-    var industryResponse;
-    var fallbackObjectivesHTML = $('#Slide-5-Wrapper .form-about-section').html();
-
-    $('.solution-field-group-wrapper').css("visibility","hidden");
-    $('select#Solution-Area').on('change', setFallbackObjectives);
 
     $('#Industry-2').on('change', function(){
         $('.solution-field-group-wrapper').css("display","none");
