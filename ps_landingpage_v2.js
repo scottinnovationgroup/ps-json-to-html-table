@@ -1,6 +1,9 @@
 var industryResponse;
 var fallbackObjectivesHTML = $('#Slide-5-Wrapper .form-about-section').html();
 
+$('.solution-field-group-wrapper').css("visibility","hidden");
+//$('select#Solution-Area').on('change', setFallbackObjectives);
+
 function getInitiativeTitles(jsonData, industry) {
 
     var initiatives = JSON.parse(industryResponse)[industry]["initiatives"];
@@ -577,6 +580,3 @@ $(document).ready(function() {
         }
     });
 });
-
-$('.solution-field-group-wrapper').css("visibility","hidden");
-$('select#Solution-Area').on('change', setFallbackObjectives);
