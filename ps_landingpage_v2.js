@@ -2,7 +2,7 @@ var industryResponse;
 var fallbackObjectivesHTML = $('#Slide-5-Wrapper .form-about-section').html();
 
 $('.solution-field-group-wrapper').css("visibility","hidden");
-//$('select#Solution-Area').on('change', setFallbackObjectives);
+$('select#Solution-Area').on('change', setFallbackObjectives);
 
 function getInitiativeTitles(jsonData, industry) {
 
